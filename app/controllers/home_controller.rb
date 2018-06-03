@@ -13,11 +13,18 @@ class HomeController < ApplicationController
 	require "uri"
 
 	def index
-		#uri1 = URI.parse("https://api.themoviedb.org/3/configuration?api_key=fe6f1f7f211065dc50201f2985280755")
+		key = Keys.new
+
+		base_url = "https://api.themoviedb.org/3/"
+		api_key = "?api_key=" + key.mdb_api
+		#action = "configuration"
+		#argument = ""
 		#response1 = Net::HTTP.get_response(uri1)
 		puts "Requesting movies from external database..."
-		#uri = URI.parse("https://api.themoviedb.org/3/movie/550?api_key=fe6f1f7f211065dc50201f2985280755")
-		uri = URI.parse("https://api.themoviedb.org/3/discover/movie?api_key=fe6f1f7f211065dc50201f2985280755&primary_release_date.gte=2018-04-01&primary_release_date.lte=2018-06-01")
+		action = "discover/movie"
+		argument = "&primary_release_date.gte=2018-04-01&primary_release_date.lte=2018-06-01"
+		uri_str = base_url + action + api_key + argument
+		uri = URI.parse(uri_str)
 		response = Net::HTTP.get_response(uri)
 		@config = "http://image.tmdb.org/t/p/w154/"
 
