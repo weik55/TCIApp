@@ -1,2 +1,82 @@
-<h1>TCI : The Celluoid Index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<div id="main-content" class="clearfix">
+	<div id="content-sort">
+		Sort By:
+		<a href="">In Theaters</a>
+		<a href="">Title</a>
+		<a href="">Release Date</a>
+		<a href="">Genre</a>
+	</div>
+	<div id="content-article">
+		<% @movies.each do |movie| %>
+		<div class="article-box clearfix">
+			<div class="art-box-left">
+				<img src="<%= @config + movie["poster_path"] %>" alt="<%= movie["title"] + " Poster Image" %>"/>
+				<div class="overall-rating">Rating</div>
+			</div>
+			<div class="art-box-right">
+				<div class="art-summary">
+					<a href=""><h3><%= movie["title"] %></h3></a>
+					<p class="summary-line"><span class="line-title"> Release Date: </span> <%= movie["date"] %> </p>
+					<p class="summary-line"><span class="line-title"> Genre: </span> 
+						<% movie["genre_ids"].each do |id| %>
+						<%= id %>
+						<% end %>
+					</p>
+				</div>
+				<div class="art-reviews">
+					<% for i in 1..2 do %>
+					<div class="review-line">
+						<div class="review-line-rating">Stars</div>
+						<p>This is a review</p>
+					</div>
+					<% end %>
+				</div>
+				<div class="art-actions">
+					<a href="">View More</a>
+					<a href="">Leave a Review</a>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+	<div id="content-aside">
+		<div id="aside-top-box">
+			<div class="aside-title">
+				<h2>Recent Reviews</h2>
+			</div>
+			<div class="aside-blurbs-box">
+				<% for i in 1..3 do %>
+				<div class="aside-review-blurb clearfix">
+					<div class="review-blurb-content">
+						<p>Movie Title 1</p>
+						<p class="opt-comment">"This movie is great!"</p>
+					</div>
+					<div class="aside-rating">Stars</div>
+				</div>
+				<% end %>
+				<div class="aside-link">
+					<a href="">View All Reviews</a>
+				</div>
+			</div>
+		</div>
+		<hr />
+		<div id="aside-bottom-box">
+			<div class="aside-title">
+				<h2>Recent Movies</h2>
+			</div>
+			<div class="aside-blurbs-box">
+				<% for i in 1..3 do %>
+				<div class="aside-movie-blurb clearfix">
+					<div class="movie-blurb-content">
+						Movie Title 1
+					</div>
+					<div class="aside-rating">Stars</div>
+				</div>
+				<% end %>
+				<div class="aside-link">
+					<a href="">View All Movies</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
