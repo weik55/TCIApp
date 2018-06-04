@@ -2,24 +2,27 @@
 # To the reviewer: I could have installed a MovieDB wrapper as a gem to speed up production
 # of this app. However, I decided to instead to use the Net::HTTP calls just to show that I can.
 
+#TODO: Create individual pages for each movie.
+#TODO: Create ability to add and delete comments
 #TODO: Add stars
-#TODO: Make a "Movie" Class Object.
 #TODO: Test Ping Database to see if it works on startup
 #TODO: Get configuration and genre look-ups and store them on startup
-#TODO: Create individual pages for each movie.
+#TODO: Error handling
 #TODO: Make a search
 class HomeController < ApplicationController
-	require "net/http"
-	require "uri"
 
+	#Method that retrieves the nessassary information for the homepage
 	def index
-		key = Keys.new
+		mr = MovieRetriever.new
+		@movies = mr.get_in_theaters
+		@poster = mr.poster_config(1)
+	end
 
+	#This is a method I used to help test certain functions of ruby on rails
+	def test_index
 		base_url = "https://api.themoviedb.org/3/"
-		api_key = "?api_key=" + key.mdb_api
-		#action = "configuration"
-		#argument = ""
-		#response1 = Net::HTTP.get_response(uri1)
+		api_key = "?api_key=" + Keys.mdb_api
+
 		puts "Requesting movies from external database..."
 		action = "discover/movie"
 		argument = "&primary_release_date.gte=2018-04-01&primary_release_date.lte=2018-06-01"
@@ -34,7 +37,6 @@ class HomeController < ApplicationController
 			parsedDate = Date.parse(movie["release_date"])
 			movie["date"] = parsedDate.to_formatted_s(:long)
 		end
-  		#@config_as_text = response1.body
   		@movie_as_text = response.body
 	end
 end

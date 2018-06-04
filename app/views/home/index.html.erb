@@ -2,7 +2,7 @@
 	<div id="content-sort">
 		Sort By:
 		<a href="">In Theaters</a>
-		<a href="">Title</a>
+		<a href="/movies">Title</a>
 		<a href="">Release Date</a>
 		<a href="">Genre</a>
 	</div>
@@ -10,12 +10,12 @@
 		<% @movies.each do |movie| %>
 		<div class="article-box clearfix">
 			<div class="art-box-left">
-				<img src="<%= @config + movie["poster_path"] %>" alt="<%= movie["title"] + " Poster Image" %>"/>
+				<img src="<%= @poster + movie["poster_path"] %>" alt="<%= movie["title"] + " Poster Image" %>"/>
 				<div class="overall-rating">Rating</div>
 			</div>
 			<div class="art-box-right">
 				<div class="art-summary">
-					<a href=""><h3><%= movie["title"] %></h3></a>
+					<a href="movies/<%= movie["id"] %>"><h3><%= movie["title"] %></h3></a>
 					<p class="summary-line"><span class="line-title"> Release Date: </span> <%= movie["date"] %> </p>
 					<p class="summary-line"><span class="line-title"> Genre: </span> 
 						<% movie["genre_ids"].each do |id| %>

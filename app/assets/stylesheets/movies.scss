@@ -1,12 +1,6 @@
-// Place all the styles related to the Home controller here.
+// Place all the styles related to the Movies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-/* This project used HTML5 Boilerplate to streamline style creation and standardize
-the styles accross browsers. To the reviewer, the custom styles are included in the
-section labled "Custom Styles" */
-
-/*! HTML5 Boilerplate v5.2.0 | https://html5boilerplate.com/ */
 
 /* ==========================================================================
    Base styles
@@ -97,142 +91,57 @@ textarea {
    Custom Styles
    ========================================================================== */
 
-a {
-	color : blue;
-}
-
-h1 {
-	color: #5e0d8b;
-	float:left;
-}
-
-#body-content {
-	min-height: calc(100vh - 22px);
-	padding-left: 20px;
-	padding-right: 20px;
-}
-
-#site-nav {
-	float:right;
-	margin-top: 50px;
-	overflow: auto;
-}
-
-#main-content {
-	margin: auto;
-}
-
-#content-article {
-	float: left;
-	margin-right: 1%;
-	width: 70%;
+#article {
 
 }
 
-#content-aside {
-	border: 1px solid #000000;
-	float: right;
-	margin-top: 20px;
-	margin-left: 20px;
-	min-width: 300px;
-	padding: 15px;
-	width: 25%;
-}
-
-#content-aside h2,
-.article-box h3 {
-	font-size: 1.5em;
-	margin: 0;
-	font-weight: normal;
-}
-
-#footer {
-	background: #e3e3e3;
-}
-
-.article-box {
-	background: #eeeeee;
-	border: 1px solid #000000;
-	margin-top: 20px;
-}
-
-.art-box-left {
+#article-img {
 	float: left;
 	margin-right: 20px;
 }
 
-.art-box-right {
+#article-main {
 	float: left;
-	margin-top: 15px;
+	width: 60%;
 }
 
-.art-actions a {
-	margin-right: 15px;
-}
-
-p.summary-line {
-	color: #666666;
+#article-main h2 {
+	font-size: 2em;
 	margin: 0;
 }
 
-.art-reviews {
-	height: 120px;
-	margin-top: 20px;
-	margin-bottom: 10px;
-	
+#fact-line{
+	margin-top: 5px;
 }
 
-.review-line p,
-.review-blurb-content p {
-	margin: 0;
+#fact-date{
 }
 
-.review-line-rating {
+.fact-item {
+	border: 1px solid gold;
 	float: left;
-	margin-right: 25px;
-}
-
-.line-title {
 	font-weight: bold;
+	padding: 5px;
+	margin-right: 40px;
 }
 
-.overall-rating{
-	padding: 10px;
-	text-align: center;
+#movie-site {
+	float: left;
+	font-weight: bold;
+	padding: 5px;
 }
 
-.aside-blurbs-box{
+#overview {
+	clear: both;
+	font-size: 1.25em;
+	margin-top: 30px;
+}
+
+#reviews {
 	margin-top: 20px;
 }
 
-.aside-link{
-	text-align: right;
-}
 
-.review-blurb-content,
-.movie-blurb-content{
-	float: left;
-}
-
-.aside-review-blurb {
-	margin-bottom: 15px;
-}
-
-.aside-movie-blurb {
-	margin-bottom: 10px;
-}
-
-.review-blurb-content p.opt-comment{
-	color: #666666;
-}
-
-.aside-rating {
-	float: right;
-}
-
-.aside-review-blurb {
-
-}
 
 
 

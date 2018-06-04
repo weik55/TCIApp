@@ -1,0 +1,27 @@
+<div id="content">
+	<div id="article" class="clearfix">
+		<div id="article-img">
+			<img src="<%= @poster + @movie["poster_path"] %>" alt="<%= @movie["title"] + " Poster Image" %>"/>
+		</div>
+		<div id="article-main">
+			<div id="article-title">
+				<h2><%= @movie["title"] %></h2>
+			</div>
+			<div id="fact-line" class="clearfix">
+				<div id="rating" class="fact-item">Stars</div>
+				<div id="fact-date" class="fact-item"><%= @movie["date"] %></div>
+				<div id="fact-time" class="fact-item"><%= @movie["runtime"] / 60 %> hrs <%= @movie["runtime"] % 60 %> mins</div>
+				<% if @movie["homepage"] %>
+				<div id="movie-site"><a href="<%= @movie["homepage"] %>">Official Site</a></div>
+				<% end %>
+			</div>
+			<hr>
+			<div id="overview">
+				<%= @movie["overview"] %>
+			</div>
+		</div>
+	</div>
+	<div id="reviews">
+		Reviews
+	</div>
+</div>
