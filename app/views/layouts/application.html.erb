@@ -10,6 +10,8 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
@@ -19,7 +21,10 @@
     <![endif]-->
     <div id="body-content">
       <div id="header" class="clearfix">
-        <h1>TCI : The Celluoid Index</h1>
+        <div id="all-title">
+          <%= image_tag "tci-logo.svg", :id => "tci-logo", :alt => "tci-logo"%> 
+          <h1>The Celluoid Index</h1>
+        </div>
         <div id="site-nav">
           <a href="/">Home</a>
           <a href="/movies">Movies</a>

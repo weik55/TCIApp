@@ -97,19 +97,33 @@ textarea {
    Custom Styles
    ========================================================================== */
 
-a {
-	color : blue;
-}
-
 h1 {
 	color: #5e0d8b;
 	float:left;
 }
 
+
 #body-content {
-	min-height: calc(100vh - 22px);
-	padding-left: 20px;
-	padding-right: 20px;
+	min-height: calc(100vh - 32px);
+}
+
+#body-content a {
+    color : blue;
+}
+
+#header {
+    border-bottom: 1px solid #ccc;
+    background: #fff;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#tci-logo {
+    display: inline-block;
+    float: left;
+    margin-top: 33px;
+    margin-right: 25px;
+    width: 100px;
 }
 
 #site-nav {
@@ -118,8 +132,53 @@ h1 {
 	overflow: auto;
 }
 
+#site-nav a:not(:last-child) {
+    border-right: 1px solid #ccc;
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
 #main-content {
-	margin: auto;
+    background: #eee;
+	margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#sort-bar{
+    margin-top: 20px;
+}
+
+#sort-title {
+    display: inline-block;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+#content-sort {
+    background: linear-gradient(#29C9DA, #36B8E9);
+    border-collapse: collapse;
+    border-radius: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#content-sort a:not(:last-child) {
+    /*border-right: 1px solid linear-gradient(#29C9DA, #36B8E9);*/
+}
+
+#content-sort a {
+    color: #fff;
+    display: inline-block;
+    float: left;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-decoration: none;
+    vertical-align: middle;
 }
 
 #content-article {
@@ -130,7 +189,8 @@ h1 {
 }
 
 #content-aside {
-	border: 1px solid #000000;
+    background: #fff;
+	border: 1px solid #ccc;
 	float: right;
 	margin-top: 20px;
 	margin-left: 20px;
@@ -147,12 +207,22 @@ h1 {
 }
 
 #footer {
-	background: #e3e3e3;
+	background: #222;
+    color: #eee;
+    padding: 5px;
+}
+
+#footer a {
+    color: #fff;
+}
+
+#footer a:hover {
+    color: #ddd;
 }
 
 .article-box {
-	background: #eeeeee;
-	border: 1px solid #000000;
+	background: #fff;
+	border: 1px solid #ccc;
 	margin-top: 20px;
 }
 
@@ -161,9 +231,34 @@ h1 {
 	margin-right: 20px;
 }
 
+.stars {
+    color: #ff9800;
+}
+
+.overall-rating i {
+    font-size: 1.5em;
+}
+
 .art-box-right {
 	float: left;
 	margin-top: 15px;
+    width: calc(100% - 225px);
+}
+
+.art-reviews {
+
+}
+
+.title-link {
+    text-decoration: none;
+}
+
+.title-link:hover {
+    text-decoration: underline;
+}
+
+.art-summary h3 {
+    margin-bottom: 5px;
 }
 
 .art-actions a {
@@ -171,12 +266,12 @@ h1 {
 }
 
 p.summary-line {
-	color: #666666;
+	color: #666;
 	margin: 0;
 }
 
 .art-reviews {
-	height: 120px;
+	height: 162px;
 	margin-top: 20px;
 	margin-bottom: 10px;
 	

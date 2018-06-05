@@ -9,8 +9,9 @@
 			</div>
 			<div id="fact-line" class="clearfix">
 				<div id="rating" class="fact-item">Stars</div>
-				<div id="fact-date" class="fact-item"><%= @movie["date"] %></div>
 				<div id="fact-time" class="fact-item"><%= @movie["runtime"] / 60 %> hrs <%= @movie["runtime"] % 60 %> mins</div>
+				<div id="fact-genre" class="fact-item">Genres</div>
+				<div id="fact-date" class="fact-item"><%= @movie["date"] %></div>
 				<% if @movie["homepage"] %>
 				<div id="movie-site"><a href="<%= @movie["homepage"] %>">Official Site</a></div>
 				<% end %>

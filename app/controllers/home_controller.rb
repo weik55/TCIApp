@@ -1,9 +1,8 @@
-# A class that controlls the inputs and outputs of the homepage (Home)
-# To the reviewer: I could have installed a MovieDB wrapper as a gem to speed up production
-# of this app. However, I decided to instead to use the Net::HTTP calls just to show that I can.
+# A class that controls the inputs and outputs of the homepage (Home)
+# To the reviewer: It may have been better to install a MovieDB wrapper as a gem to speed up production
+# of this app. However, I decided to instead to use the Net::HTTP protocols included just to show that I can.
 
-#TODO: Create individual pages for each movie.
-#TODO: Create ability to add and delete comments
+#TODO: Show and delete comments
 #TODO: Add stars
 #TODO: Test Ping Database to see if it works on startup
 #TODO: Get configuration and genre look-ups and store them on startup
@@ -15,7 +14,8 @@ class HomeController < ApplicationController
 	def index
 		mr = MovieRetriever.new
 		@movies = mr.get_in_theaters
-		@poster = mr.poster_config(1)
+		@upcoming = mr.get_upcoming
+		@poster = mr.poster_config(2)
 	end
 
 	#This is a method I used to help test certain functions of ruby on rails
