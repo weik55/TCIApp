@@ -46,7 +46,9 @@ class MovieRetriever
 	# Retrieves the first page of a list of movies that are upcoming
 	def get_upcoming
 		action = "discover/movie"
-		argument = "&primary_release_date.gte=2018-06-05&primary_release_date.lte=2018-07-15"
+		today = Date.today.to_s
+		next_month = Date.today.advance(:months => 1).to_s
+		argument = "&primary_release_date.gte=" + today + "&primary_release_date.lte=" + next_month
 		response = call_api(action, argument)
 		movies = response["results"]
 		movies.each do |movie|
@@ -57,11 +59,14 @@ class MovieRetriever
 
 
 	# Retrieves the information of one movie
+	# 
 	def get_movie (id)
 		action = "movie/" + id
 		argument = "&language=en-US"
 		response = call_api(action, argument)
-		response["date"] = format_date(response["release_date"])
+		if response["release_date"]
+			response["date"] = format_date(response["release_date"])
+		end
 		return response
 	end
 

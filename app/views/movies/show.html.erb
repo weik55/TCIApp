@@ -1,7 +1,9 @@
 <div id="content">
 	<div id="article" class="clearfix">
 		<div id="article-img">
+			<% if @movie["poster_path"] %>
 			<img src="<%= @poster + @movie["poster_path"] %>" alt="<%= @movie["title"] + " Poster Image" %>"/>
+			<% end %>
 		</div>
 		<div id="article-main">
 			<div id="article-title">
@@ -9,9 +11,17 @@
 			</div>
 			<div id="fact-line" class="clearfix">
 				<div id="rating" class="fact-item">Stars</div>
-				<div id="fact-time" class="fact-item"><%= @movie["runtime"] / 60 %> hrs <%= @movie["runtime"] % 60 %> mins</div>
+				<div id="fact-time" class="fact-item">
+					<% if @movie["runtime"] %>
+					<%= @movie["runtime"] / 60 %> hrs <%= @movie["runtime"] % 60 %> mins
+					<% end %>
+				</div>
 				<div id="fact-genre" class="fact-item">Genres</div>
-				<div id="fact-date" class="fact-item"><%= @movie["date"] %></div>
+				<div id="fact-date" class="fact-item">
+					<% if @movie["date"] %>
+					<%= @movie["date"] %>
+					<% end %>
+				</div>
 				<% if @movie["homepage"] %>
 				<div id="movie-site"><a href="<%= @movie["homepage"] %>">Official Site</a></div>
 				<% end %>
@@ -23,6 +33,22 @@
 		</div>
 	</div>
 	<div id="reviews">
-		Reviews
+		<div id="reviews-box-title">
+			<h3>Reviews</h3>
+		</div>
+		<% @movie["reviews"].each do |review|%>
+			<div class="review-blurb">
+				<div class="review-line-rating">
+					<%= raw gen_stars(review.rating) %>
+				</div>
+				<div >
+					<% if review.comment %>
+						<%= review.comment %>
+					<% else %>
+						- annonymous
+					<% end %>
+				</div>
+			</div>
+		<% end %>
 	</div>
 </div>

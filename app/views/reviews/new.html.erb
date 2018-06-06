@@ -1,32 +1,10 @@
-<div id="review-form">
-	<h2>New Review for <%= params[:movie_title] %></h2>
-	<%= form_with scope: :review, url: reviews_path, local: true do |form| %>
-		<p>
-			<%= radio_button_tag('review[rating]', "1") %>
-			<%= label_tag(:rating, "1") %>
-			<%= radio_button_tag('review[rating]', "2") %>
-			<%= label_tag(:rating, "2") %>
-			<%= radio_button_tag('review[rating]', "3") %>
-			<%= label_tag(:rating, "3") %>
-			<%= radio_button_tag('review[rating]', "4") %>
-			<%= label_tag(:rating, "4") %>
-			<%= radio_button_tag('review[rating]', "5") %>
-			<%= label_tag(:rating, "5") %>
-		</p>
-
-	 	<p>
-	    	<%= form.label :email %><br>
-	   		<%= email_field(:user, :email) %>
-	 	</p>
-	 
-	  	<p>
-	    	<%= form.label :text %><br>
-	    	<%= form.text_area :text %>
-	  	</p>
-	 
-	  	<p>
-	  		<%= hidden_field_tag('review[movie_id]', params[:movie_id]) %>
-	    	<%= form.submit %>
-	  	</p>
-	<% end %>
+<div id="review-new-view">
+	<h2>
+		<% if params[:movie_title] && !params[:movie_title].empty? && params[:movie_id] && !params[:movie_id].empty? %>
+			<%= link_to params[:movie_title], movie_path(params[:movie_id]), :class => "title-link" %>	
+		<% else %>
+			Uh oh, undefined movie!
+		<% end %>
+	</h2>
+	<%= render 'review_form' %>
 </div>

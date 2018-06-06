@@ -13,14 +13,20 @@ class MoviesController < ApplicationController
 	def index
 		mr = MovieRetriever.new
 		@movies = mr.get_in_theaters
+		@movies.each do |movie|
+			movie["reviews"] = Review.by_movie(movie["id"])
+		end
 		@poster = mr.poster_config(2)
-		render 'home/index'
 	end
 
 	# Shows on particular movie object 
 	def show
 		mr = MovieRetriever.new
 		@movie = mr.get_movie(params[:id])
+		@movie["reviews"] = Review.by_movie(params[:id])
 		@poster = mr.poster_config(3)
+		if @movie["title"] == nil
+			render plain: "Uhhh your movie doesn't seem to exist in the database. Maybe we took a wrong turn at Albuquerque..."
+		end
 	end
 end

@@ -165,6 +165,21 @@ h1 {
     vertical-align: middle;
 }
 
+#content-sort .selected{
+    background: #fff;
+    color: #000;
+}
+
+#content-sort a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+#content-sort a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
 #content-sort a:not(:last-child) {
     /*border-right: 1px solid linear-gradient(#29C9DA, #36B8E9);*/
 }
@@ -178,13 +193,23 @@ h1 {
     padding-left: 15px;
     padding-right: 15px;
     text-decoration: none;
+    transition: background 0.25s ease-out;
     vertical-align: middle;
+}
+
+#content-sort a:hover {
+    background: #fff;
+    color: #000;
+}
+
+#home-view-content {
+    width: 70%;
 }
 
 #content-article {
 	float: left;
 	margin-right: 1%;
-	width: 70%;
+	width: 100%;
 
 }
 
@@ -231,8 +256,12 @@ h1 {
 	margin-right: 20px;
 }
 
-.stars {
+.stars-gold {
     color: #ff9800;
+}
+
+.stars-grey {
+    color: #aaa;
 }
 
 .overall-rating i {
@@ -246,7 +275,7 @@ h1 {
 }
 
 .art-reviews {
-
+    padding-right: 5px;
 }
 
 .title-link {
@@ -277,11 +306,6 @@ p.summary-line {
 	
 }
 
-.review-line p,
-.review-blurb-content p {
-	margin: 0;
-}
-
 .review-line-rating {
 	float: left;
 	margin-right: 25px;
@@ -304,7 +328,6 @@ p.summary-line {
 	text-align: right;
 }
 
-.review-blurb-content,
 .movie-blurb-content{
 	float: left;
 }
@@ -317,8 +340,24 @@ p.summary-line {
 	margin-bottom: 10px;
 }
 
-.review-blurb-content p.opt-comment{
-	color: #666666;
+.review-blurb-title {
+    margin-bottom: 3px;
+}
+
+.review-blurb-movie {
+    float: left;
+}
+
+.opt-comment{
+	color: #666;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.opt-smaller {
+    font-size: .95em;
 }
 
 .aside-rating {

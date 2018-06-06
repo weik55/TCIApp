@@ -1,0 +1,45 @@
+<div id="content-article">
+	<% @movies.each do |movie| %>
+		<div class="article-box clearfix">
+			<div class="art-box-left">
+				<% if movie["poster_path"] %>
+				<img src="<%= @poster + movie["poster_path"] %>" alt="<%= movie["title"] + " Poster Image" %>"/>
+				<% end %>
+				<div class="overall-rating">
+					<%= raw gen_stars %>
+				</div>
+			</div>
+			<div class="art-box-right">
+				<div class="art-summary">
+					<h3><%= link_to movie["title"], movie_path(movie["id"]), :class => "title-link" %></h3>
+					<p class="summary-line"><span class="line-title"> Release Date: </span> <%= movie["date"] %> </p>
+					<p class="summary-line"><span class="line-title"> Genre: </span> 
+						<% movie["genre_ids"].each do |id| %>
+							<%= id %>
+						<% end %>
+					</p>
+				</div>
+				<div class="art-reviews">
+					<% movie["reviews"].each do |review|%>
+						<div class="review-line">
+							<div class="review-line-rating">
+								<%= raw gen_stars(review.rating) %>
+							</div>
+							<div class="opt-comment">
+								<% if review.comment %>
+									<%= review.comment %>
+								<% else %>
+									- annonymous
+								<% end %>
+							</div>
+						</div>
+					<% end %>
+				</div>
+				<div class="art-actions">
+					<a href="">View More</a>
+					<%= link_to 'Leave a Review', new_review_path(:movie_title => movie["title"], :movie_id => movie["id"]) %>
+				</div>
+			</div>
+		</div>
+	<% end %>
+</div>

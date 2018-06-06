@@ -3,7 +3,93 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
-#review-form {
+#reviews-main,
+#review-view {
+	padding: 20px;
+}
+
+#reviews-heading {
+	font-weight: bold;
+	text-align: center;
+}
+
+.table {
+	display: table;
+	width: 100%;
+}
+
+.row {
+	display: table-row;
+}
+
+.row:nth-of-type(odd):not(:first-child) {
+	background: #eee;
+}
+
+.row div{
+	display: table-cell;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	padding-left: 20px;
 	padding-right: 20px;
+	max-width: 800px;
+}
+
+.centered-column {
+	text-align: center;
+}
+
+.action-link:not(:last-child){
+	margin-right: 10px;
+}
+
+#review-new-view {
+	padding: 20px;
+}
+
+#review-new-view h2 {
+	font-size: 2em;
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+#review-form {
+	background: #fff;
+	border: 1px solid #ccc;
+	padding: 20px;
+	max-width: 350px;
+}
+
+#email-field input,
+#comment-box textarea {
+	width: 100%;
+}
+
+#comment-box textarea {
+	height: 200px;
+}
+
+.form-element {
+	margin-bottom: 15px;
+}
+.required:after {
+	color: red;
+	content: "*"; 
+}
+
+#email-label {
+	margin-bottom: 5px;
+}
+
+#rating-label,
+#rating-buttons {
+	display: inline-block;
+}
+
+#rating-buttons {
+	float: right;
+}
+
+#submit-box {
+	text-align: right;
 }

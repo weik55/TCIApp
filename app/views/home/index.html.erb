@@ -1,49 +1,7 @@
 <div id="main-content" class="clearfix">
-	<div id="sort-bar">
-		<div id="sort-title">Sort By:</div>
-		<div id="content-sort">
-			<a href="">In Theaters</a>
-			<a href="/movies">Title</a>
-			<a href="">Release Date</a>
-			<a href="">Genre</a>
-		</div>
-	</div>
-	<div id="content-article">
-		<% @movies.each do |movie| %>
-		<div class="article-box clearfix">
-			<div class="art-box-left">
-				<img src="<%= @poster + movie["poster_path"] %>" alt="<%= movie["title"] + " Poster Image" %>"/>
-				<div class="overall-rating">
-					<%= raw gen_stars %>
-				</div>
-			</div>
-			<div class="art-box-right">
-				<div class="art-summary">
-					<h3><%= link_to movie["title"], movie_path(movie["id"]), :class => "title-link" %></h3>
-					<p class="summary-line"><span class="line-title"> Release Date: </span> <%= movie["date"] %> </p>
-					<p class="summary-line"><span class="line-title"> Genre: </span> 
-						<% movie["genre_ids"].each do |id| %>
-						<%= id %>
-						<% end %>
-					</p>
-				</div>
-				<div class="art-reviews">
-					<% for i in 1..2 do %>
-					<div class="review-line">
-						<div class="review-line-rating">
-							<%= raw gen_stars %>
-						</div>
-						<p>This is a review</p>
-					</div>
-					<% end %>
-				</div>
-				<div class="art-actions">
-					<a href="">View More</a>
-					<%= link_to 'Leave a Review', new_review_path(:movie_title => movie["title"], :movie_id => movie["id"]) %>
-				</div>
-			</div>
-		</div>
-		<% end %>
+	<%= render 'movies/movies_bar' %>
+	<div id="home-view-content">
+		<%= render 'movies/movies_main' %>
 	</div>
 	<div id="content-aside">
 		<div id="aside-top-box">
@@ -51,19 +9,27 @@
 				<h2>Recent Reviews</h2>
 			</div>
 			<div class="aside-blurbs-box">
-				<% for i in 1..3 do %>
-				<div class="aside-review-blurb clearfix">
-					<div class="review-blurb-content">
-						<p>Movie Title 1</p>
-						<p class="opt-comment">"This movie is great!"</p>
+				<% @side_reviews.each do |review| %>
+					<div class="aside-review-blurb clearfix">
+						<div class="review-blurb-title clearfix">
+							<div class="review-blurb-movie">
+								<% if review.movie_title %>
+									<%= review.movie_title %>
+								<% end %>
+							</div>
+							<div class="aside-rating">
+								<%= raw gen_stars(review.rating) %>
+							</div>
+						</div>
+						<div class="opt-comment opt-smaller">
+							<% if review.comment %>
+								&ldquo;<%= review.comment %>&rdquo;
+							<% end %>
+						</div>
 					</div>
-					<div class="aside-rating">
-						<%= raw gen_stars %>
-					</div>
-				</div>
 				<% end %>
 				<div class="aside-link">
-					<a href="">View All Reviews</a>
+					<%= link_to "View All Reviews", controller: "reviews" %>
 				</div>
 			</div>
 		</div>
@@ -74,17 +40,17 @@
 			</div>
 			<div class="aside-blurbs-box">
 				<% @upcoming.each do |movie| %>
-				<div class="aside-movie-blurb clearfix">
-					<div class="movie-blurb-content">
-						<%= link_to movie["title"], movie_path(movie["id"]), :class => "title-link" %>
+					<div class="aside-movie-blurb clearfix">
+						<div class="movie-blurb-content">
+							<%= link_to movie["title"], movie_path(movie["id"]), :class => "title-link" %>
+						</div>
+						<div class="aside-rating">
+							<%= movie["date"] %>
+						</div>
 					</div>
-					<div class="aside-rating">
-						<%= movie["date"] %>
-					</div>
-				</div>
 				<% end %>
 				<div class="aside-link">
-					<a href="">View All Movies</a>
+					<%= link_to "View All Movies", controller: "movies" %>
 				</div>
 			</div>
 		</div>

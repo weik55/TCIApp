@@ -17,36 +17,44 @@ class ReviewsController < ApplicationController
 
 	# Presents a site that shows all the reivews in once place
 	def index
+		@reviews = Review.all
 	end
 
 	# Shows one particular review
 	def show
+		@review = Review.find(params[:id])
 	end
 
 	# A view that lets the user create a new review
 	def new
+		@review = Review.new
 	end
 
 	# Create a new review based on parameters submitted
 	def create
-		render plain: params[:user].inspect + params[:review].inspect + params[:movie_id].inspect
-	end
-
-	# Find a particular review and send the user to editing view
-	def edit
-	end
-
-	# Update a particular review
-	def update
+		@review = Review.new(review_params)
+		@review.date = Date.today
+		if @review.save
+			redirect_to @review
+		else
+			render 'new'
+		end
 	end
 
 	# Delete a particualr review
 	def destroy
+		@review = Review.find(params[:id])
+		@review.destroy
+
+		redirect_to reviews_path
 	end
 
 	private
-		def article_params
-			params.require(:user).permit(:email)
-			params.require(:review).permit(:movie_id, :rating, :comment)
+		def review_params
+			params.require(:review).require(:movie_id)
+			params.require(:review).require(:movie_title)
+			params.require(:review).require(:rating)
+			params.require(:user).require(:email)
+			params.require(:review).permit(:movie_id, :movie_title, :rating, :comment).merge(params.require(:user).permit(:email))
 		end
 end

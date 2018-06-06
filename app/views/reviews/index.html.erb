@@ -1,0 +1,45 @@
+<div id="reviews-main">
+	<div id="reviews-table" class="table">
+		<div id="reviews-heading" class="row">
+			<div>ID</div>
+			<div>Movie</div>
+			<div>Date</div>
+			<div>Rating</div>
+			<div>Comment</div>
+			<div>Actions</div>
+		</div>
+
+			<% @reviews.each do |review| %>
+				<div class="row">
+					<div>
+						<%= link_to review.id, review_path(review.id), :class => "title-link"%>	
+					</div>
+					<div class="movie-column">
+						<% if review.movie_title %>
+							<%= link_to review.movie_title, movie_path(review.movie_id), :class => "title-link" %>	
+						<% end %>
+					</div>
+					<div class="centered-column">
+						<% if review.date %>
+							<%= review.date %>
+						<% end %>
+					</div>
+					<div class="centered-column">
+						<% if review.rating %>
+							<%= review.rating %>
+						<% end %>
+					</div>
+					<div>
+						<% if review.comment %>
+							<%= review.comment %>
+						<% end %>
+					</div>
+					<div class="centered-column">
+						<%= link_to 'Show', review_path(review), :class => "action-link title-link"%>
+						<%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: 'Are you sure? You cannot undo this action.' }, :class => "action-link title-link" %>
+					</div>
+				</div>
+			<% end %>
+
+	</div>
+</div>

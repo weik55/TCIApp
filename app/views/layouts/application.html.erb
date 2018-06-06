@@ -22,14 +22,14 @@
     <div id="body-content">
       <div id="header" class="clearfix">
         <div id="all-title">
-          <%= image_tag "tci-logo.svg", :id => "tci-logo", :alt => "tci-logo"%> 
+          <%= link_to image_tag("tci-logo.svg"), root_path, :id => "tci-logo", :alt => "tci-logo"%> 
           <h1>The Celluoid Index</h1>
         </div>
         <div id="site-nav">
-          <a href="/">Home</a>
-          <a href="/movies">Movies</a>
-          <a href="/reviews">Reviews</a>
-          <a href="/about">About</a>
+          <%= link_to "Home", root_path %>
+          <%= link_to "Movies", movies_path %>
+          <%= link_to "Reviews", reviews_path %>
+          <%= link_to "About", about_path %>
         </div>
       </div>
       <%= yield %>
