@@ -22,14 +22,14 @@
 							</div>
 						</div>
 						<div class="opt-comment opt-smaller">
-							<% if review.comment %>
+							<% if review.comment && !review.comment.eql?("")%>
 								&ldquo;<%= review.comment %>&rdquo;
 							<% end %>
 						</div>
 					</div>
 				<% end %>
 				<div class="aside-link">
-					<%= link_to "View All Reviews", controller: "reviews" %>
+					<%= link_to "View All Reviews", reviews_path, :class => "general-link" %>
 				</div>
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 					</div>
 				<% end %>
 				<div class="aside-link">
-					<%= link_to "View All Movies", controller: "movies" %>
+					<%= link_to "View All Movies", movies_path, :class => "general-link" %>
 				</div>
 			</div>
 		</div>

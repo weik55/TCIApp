@@ -26,10 +26,10 @@
           <h1>The Celluoid Index</h1>
         </div>
         <div id="site-nav">
-          <%= link_to "Home", root_path %>
-          <%= link_to "Movies", movies_path %>
-          <%= link_to "Reviews", reviews_path %>
-          <%= link_to "About", about_path %>
+          <%= link_to "Home", root_path, :class => "title-link" %>
+          <%= link_to "Movies", movies_path, :class => "title-link"%>
+          <%= link_to "Reviews", reviews_path, :class => "title-link" %>
+          <%= link_to "About", about_path, :class => "title-link" %>
         </div>
       </div>
       <%= yield %>

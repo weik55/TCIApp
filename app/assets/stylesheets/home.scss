@@ -2,6 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/*
+Theme Name: TCI App
+Description: Simple light colored theme
+Author: Wei Kong
+Author URI: https://www.weikongweb.com/
+Tags: TCI, Homepage Website
+*/
+
 /* This project used HTML5 Boilerplate to streamline style creation and standardize
 the styles accross browsers. To the reviewer, the custom styles are included in the
 section labled "Custom Styles" */
@@ -97,20 +105,56 @@ textarea {
    Custom Styles
    ========================================================================== */
 
+@mixin transition($transition) {
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+}
+
+/* General Styles */
+
 h1 {
 	color: #5e0d8b;
 	float:left;
 }
 
+.stars-gold {
+    color: #ff9800;
+}
+
+.stars-grey {
+    color: #aaa;
+}
 
 #body-content {
 	min-height: calc(100vh - 32px);
 }
 
+/* General Styles: Link */
 #body-content a {
     color : blue;
 }
 
+.title-link {
+    text-decoration: none;
+}
+
+.title-link:hover {
+    text-decoration: underline;
+}
+
+.general-link {
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+    @include transition(border 0.25s ease-out);
+}
+
+.general-link:hover {
+    border-bottom: 1px solid blue;
+}
+
+/* Header Style */
 #header {
     border-bottom: 1px solid #ccc;
     background: #fff;
@@ -138,6 +182,9 @@ h1 {
     padding-right: 10px;
 }
 
+
+/* Body Styles */
+
 #main-content {
     background: #eee;
 	margin-left: auto;
@@ -146,6 +193,8 @@ h1 {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+/* Body Nav */
 
 #sort-bar{
     margin-top: 20px;
@@ -158,8 +207,7 @@ h1 {
 }
 
 #content-sort {
-    background: linear-gradient(#29C9DA, #36B8E9);
-    border-collapse: collapse;
+    background: linear-gradient(#29c9da, #36b8e9);
     border-radius: 5px;
     display: inline-block;
     vertical-align: middle;
@@ -193,7 +241,7 @@ h1 {
     padding-left: 15px;
     padding-right: 15px;
     text-decoration: none;
-    transition: background 0.25s ease-out;
+    @include transition(background 0.25s ease-out);
     vertical-align: middle;
 }
 
@@ -201,6 +249,8 @@ h1 {
     background: #fff;
     color: #000;
 }
+
+/* Home View Main Content */
 
 #home-view-content {
     width: 70%;
@@ -215,7 +265,8 @@ h1 {
 
 #content-aside {
     background: #fff;
-	border: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 	float: right;
 	margin-top: 20px;
 	margin-left: 20px;
@@ -231,23 +282,13 @@ h1 {
 	font-weight: normal;
 }
 
-#footer {
-	background: #222;
-    color: #eee;
-    padding: 5px;
-}
 
-#footer a {
-    color: #fff;
-}
-
-#footer a:hover {
-    color: #ddd;
-}
+/* Main Article Boxes */
 
 .article-box {
 	background: #fff;
-	border: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 	margin-top: 20px;
 }
 
@@ -256,12 +297,9 @@ h1 {
 	margin-right: 20px;
 }
 
-.stars-gold {
-    color: #ff9800;
-}
-
-.stars-grey {
-    color: #aaa;
+.img-holder {
+    height: 267px;
+    width: 185px;
 }
 
 .overall-rating i {
@@ -278,14 +316,6 @@ h1 {
     padding-right: 5px;
 }
 
-.title-link {
-    text-decoration: none;
-}
-
-.title-link:hover {
-    text-decoration: underline;
-}
-
 .art-summary h3 {
     margin-bottom: 5px;
 }
@@ -294,7 +324,7 @@ h1 {
 	margin-right: 15px;
 }
 
-p.summary-line {
+.summary-line {
 	color: #666;
 	margin: 0;
 }
@@ -319,6 +349,8 @@ p.summary-line {
 	padding: 10px;
 	text-align: center;
 }
+
+/* Side Content Box */
 
 .aside-blurbs-box{
 	margin-top: 20px;
@@ -366,6 +398,22 @@ p.summary-line {
 
 .aside-review-blurb {
 
+}
+
+/* Footer Styles */
+
+#footer {
+    background: #222;
+    color: #eee;
+    padding: 5px;
+}
+
+#footer a {
+    color: #fff;
+}
+
+#footer a:hover {
+    color: #ddd;
 }
 
 

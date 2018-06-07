@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  one_star: 1
+  two_star: 1
+  three_star: 1
+  four_star: 1
+  five_star: 1
+  avg: 1.5
+
+two:
+  one_star: 1
+  two_star: 1
+  three_star: 1
+  four_star: 1
+  five_star: 1
+  avg: 1.5

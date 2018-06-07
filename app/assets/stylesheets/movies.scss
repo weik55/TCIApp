@@ -2,18 +2,50 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* Movies Index */
+#pagination {
+	margin-top: 20px;
+	font-size: 1.2em;
+}
+
+#pagi-left{
+	float: left;
+}
+
+#pagi-right{
+	float: right;
+}
+
+#pagination i {
+	color: blue;
+	font-size: 1.5em;
+	vertical-align: middle;
+}
+
+#pagination i:hover {
+	color: #000;
+}
+
+#pagination a {
+	text-decoration: none;
+}
+
+#additional-sort {
+	display: inline-block;
+	margin-left: 30px;
+	vertical-align: middle;
+}
+
 #movies-view-content {
     width: 100%;
 }
+
+/*Movies Show View */
 
 #content {
     background: #fff;
     padding-left: 20px;
     padding-right: 20px;
-}
-
-#article {
-
 }
 
 #article-img {
@@ -35,15 +67,12 @@
 	margin-top: 5px;
 }
 
-#fact-date{
-}
-
 .fact-item {
     border-right: 1px solid #cccccc;
 	float: left;
 	font-weight: bold;
-	padding-right: 20px;
     margin-right: 20px;
+	padding-right: 20px;
 }
 
 #movie-site {
@@ -59,4 +88,20 @@
 
 #reviews {
 	margin-top: 20px;
+	padding-bottom: 20px;
 }
+
+.review-comment-box {
+	margin-top: 10px;
+}
+
+.review-comment {
+	float: left;
+	max-width: 90%;
+}
+
+.review-perma {
+	display: inline-block;
+	font-size: 0.75em;
+}
+

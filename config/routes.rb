@@ -6,5 +6,6 @@ Rails.application.routes.draw do
   resources :reviews, except: [:edit, :update]
 
   get 'about' => 'about#index'
+  get 'ratings' => 'ratings#index'
   root 'home#index'
 end

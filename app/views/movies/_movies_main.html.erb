@@ -3,15 +3,21 @@
 		<div class="article-box clearfix">
 			<div class="art-box-left">
 				<% if movie["poster_path"] %>
-				<img src="<%= @poster + movie["poster_path"] %>" alt="<%= movie["title"] + " Poster Image" %>"/>
+					<img src="<%= @poster + movie["poster_path"] %>" alt="<%= movie["title"] + " Poster Image" %>"/>
+				<% else %>
+					<div class="img-holder" alt="No Image"></div>
 				<% end %>
 				<div class="overall-rating">
-					<%= raw gen_stars %>
+					<% if movie["ratings"] %>
+						<%= raw gen_stars(movie["ratings"].avg) %>
+					<% else %>
+						<%= raw gen_stars %>
+					<% end %>
 				</div>
 			</div>
 			<div class="art-box-right">
 				<div class="art-summary">
-					<h3><%= link_to movie["title"], movie_path(movie["id"]), :class => "title-link" %></h3>
+					<h3><%= link_to movie["title"], movie_path(movie["id"]), :class => "general-link" %></h3>
 					<p class="summary-line"><span class="line-title"> Release Date: </span> <%= movie["date"] %> </p>
 					<p class="summary-line"><span class="line-title"> Genre: </span> 
 						<% movie["genre_ids"].each do |id| %>
@@ -26,7 +32,7 @@
 								<%= raw gen_stars(review.rating) %>
 							</div>
 							<div class="opt-comment">
-								<% if review.comment %>
+								<% if review.comment && !review.comment.eql?("") %>
 									<%= review.comment %>
 								<% else %>
 									- annonymous
@@ -36,8 +42,10 @@
 					<% end %>
 				</div>
 				<div class="art-actions">
-					<a href="">View More</a>
-					<%= link_to 'Leave a Review', new_review_path(:movie_title => movie["title"], :movie_id => movie["id"]) %>
+					<% if movie["more_reviews"] == true %>
+						<%= link_to "View More", movie_path(movie["id"]), :class => "general-link" %>
+					<% end %>
+					<%= link_to 'Leave a Review', new_review_path(:movie_title => movie["title"], :movie_id => movie["id"]), :class => "general-link" %>
 				</div>
 			</div>
 		</div>

@@ -34,6 +34,17 @@ class ReviewsController < ApplicationController
 	def create
 		@review = Review.new(review_params)
 		@review.date = Date.today
+
+		@rating = Rating.by_movie(params[:review][:movie_id]);
+		star_rating = params[:review][:rating]
+		if @rating
+			@rating.update(star_rating => (@rating.get_star_count(star_rating) + 1))
+			@rating.update(avg: @rating.average_of_all)
+		else
+			@rating = Rating.new(params.require(:review).permit(:movie_id).merge(star_rating => 1, avg: star_rating))
+			@rating.save
+		end
+
 		if @review.save
 			redirect_to @review
 		else

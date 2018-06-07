@@ -1,0 +1,40 @@
+<div id="reviews-table" class="table">
+	<div id="reviews-heading" class="row">
+		<div>ID</div>
+		<div>Movie</div>
+		<div>1 Star</div>
+		<div>2 Star</div>
+		<div>3 Star</div>
+		<div>4 Star</div>
+		<div>5 Star</div>
+		<div>Calc Avg</div>
+		<div>Average</div>
+		<div>Actions</div>
+	</div>
+	<% @ratings.each do |rating| %>
+		<div class="row">
+			<div>
+				<%= rating.id %>	
+			</div>
+			<div class="centered-column">
+				<%= link_to rating.movie_id, movie_path(rating.movie_id), :class => "title-link" %>	
+			</div>
+			<% (1..5).each do |i| %>
+				<div class="centered-column">
+					<%= rating.get_star_count(i) %>
+				</div>
+			<% end %>
+			<div class="centered-column">
+				<%= rating.average_of_all.round(2) %>
+			</div>
+			<div class="centered-column">
+				<% if rating.avg %>
+					<%= rating.avg.round(2) %>
+				<% end %>
+			</div>
+			<div class="centered-column">
+				<%= link_to 'Delete', ratings_path(rating), method: :delete, data: { confirm: 'Are you sure? You cannot undo this action.' }, :class => "action-link title-link" %>
+			</div>
+		</div>
+	<% end %>
+</div>

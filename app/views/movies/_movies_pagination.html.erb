@@ -1,0 +1,10 @@
+<div id="pagination" class="clearfix">
+	<div id="pagi-left">
+		<% if @page - 1 >= 1 %>
+			<%= link_to raw('<i class="fas fa-arrow-alt-circle-left"></i> <span class="general-link">Previous</span>'), movies_path(params.permit!.except(:page).merge(:page => @page - 1)) %>
+		<% end %>
+	</div>
+	<div id="pagi-right">
+		<%= link_to raw('<span class="general-link">Next</span> <i class="fas fa-arrow-alt-circle-right"></i>'), movies_path(params.permit!.except(:page).merge(:page => @page + 1)) %>
+	</div>
+</div>

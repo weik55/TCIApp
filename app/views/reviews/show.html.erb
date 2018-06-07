@@ -1,9 +1,10 @@
 <div id="review-view">
-	<div><%= @review.id %></div>
-	<div><%= @review.movie_title %></div>
-	<div><%= @review.movie_id %></div>
-	<div><%= @review.email %></div>
-	<div><%= @review.date %></div>
-	<div><%= @review.rating %></div>
-	<div><%= @review.comment %></div>
+	<div>Review ID: <%= @review.id %></div>
+	<div>Movie Title: <%= @review.movie_title %></div>
+	<div>Movie ID: <%= @review.movie_id %></div>
+	<div>Email: <%= @review.email %></div>
+	<div>Date: <%= @review.date %></div>
+	<div>Rating: <%= @review.rating %></div>
+	<div>Comment: <%= @review.comment %></div>
+	<div><%= link_to 'Delete', review_path(@review), method: :delete, data: { confirm: 'Are you sure? You cannot undo this action.' }, :class => "title-link" %></div>
 </div>

@@ -12,9 +12,18 @@ class MoviesController < ApplicationController
 	# Presents the default view of veiwing a list of movie objects
 	def index
 		mr = MovieRetriever.new
-		@movies = mr.get_in_theaters
-		@movies.each do |movie|
-			movie["reviews"] = Review.by_movie(movie["id"])
+
+		@page = 1
+		if params[:page] && params[:page].to_i >= 2
+			@page = params[:page].to_i
+		end
+
+		if params[:sort_by] == "title"
+			@movies = MovieRetriever.load_movie_details(mr.get_by_title(@page))
+		elsif params[:sort_by] == "date" && params[:year]
+			@movies = MovieRetriever.load_movie_details(mr.get_by_year(params[:year], @page))
+		else
+			@movies = MovieRetriever.load_movie_details(mr.get_in_theaters)
 		end
 		@poster = mr.poster_config(2)
 	end
@@ -24,9 +33,13 @@ class MoviesController < ApplicationController
 		mr = MovieRetriever.new
 		@movie = mr.get_movie(params[:id])
 		@movie["reviews"] = Review.by_movie(params[:id])
+		@movie["ratings"] = Rating.by_movie(params[:id])
 		@poster = mr.poster_config(3)
 		if @movie["title"] == nil
 			render plain: "Uhhh your movie doesn't seem to exist in the database. Maybe we took a wrong turn at Albuquerque..."
 		end
 	end
+
 end
+
+

@@ -1,8 +1,8 @@
 module HomeHelper
 	def gen_stars (n = 0)
-		r = 5 - n
+		r = 5 - n.round
 		stars = ''
-		n.times do
+		n.round.times do
 			stars += '<i class="stars-gold fas fa-star"></i>'
 		end
 
@@ -11,4 +11,5 @@ module HomeHelper
 		end
 		return stars
 	end
+
 end

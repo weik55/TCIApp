@@ -1,28 +1,28 @@
 <div id="review-form">
 	<%= form_with scope: :review, url: reviews_path, local: true do |form| %>
 		<div id="rating-element" class="form-element clearfix">
-			<div id="rating-label" class="required"> Rating</div>
+			<div id="rating-label" class="required">Rating</div>
 			<div id="rating-buttons">
-				<%= radio_button_tag('review[rating]', "1") %>
+				<%= radio_button_tag('review[rating]', "1", :required => true) %>
 				<%= label_tag(:rating, "1") %>
-				<%= radio_button_tag('review[rating]', "2") %>
+				<%= radio_button_tag('review[rating]', "2", :required => true) %>
 				<%= label_tag(:rating, "2") %>
-				<%= radio_button_tag('review[rating]', "3") %>
+				<%= radio_button_tag('review[rating]', "3", :required => true) %>
 				<%= label_tag(:rating, "3") %>
-				<%= radio_button_tag('review[rating]', "4") %>
+				<%= radio_button_tag('review[rating]', "4", :required => true) %>
 				<%= label_tag(:rating, "4") %>
-				<%= radio_button_tag('review[rating]', "5") %>
+				<%= radio_button_tag('review[rating]', "5", :required => true) %>
 				<%= label_tag(:rating, "5") %>
 			</div>
 		</div>
 
 		 <div class="form-element">
 	    	<div id="email-label"><%= form.label :email, :class => "required" %></div>
-	   		<div id="email-field"><%= email_field(:user, :email) %></div>
+	   		<div id="email-field"><%= email_field(:user, :email, :required => true) %></div>
 	 	</div>
 	 
 	  	<div id="comment-box" class="form-element">
-	    	<%= form.text_area :comment, :placeholder => "Love it... hate it... ambivelent"%>
+	    	<%= form.text_area :comment, :placeholder => "Love it... hate it... ambivelent" %>
 	  	</div>
 	 
 	  	<div>

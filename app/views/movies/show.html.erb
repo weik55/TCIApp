@@ -10,20 +10,26 @@
 				<h2><%= @movie["title"] %></h2>
 			</div>
 			<div id="fact-line" class="clearfix">
-				<div id="rating" class="fact-item">Stars</div>
+				<div id="rating" class="fact-item">
+					<% if @movie["ratings"] %>
+						<%= raw gen_stars(@movie["ratings"].avg) %>
+					<% else %>
+						<%= raw gen_stars %>
+					<% end %>
+				</div>
 				<div id="fact-time" class="fact-item">
 					<% if @movie["runtime"] %>
-					<%= @movie["runtime"] / 60 %> hrs <%= @movie["runtime"] % 60 %> mins
+						<%= @movie["runtime"] / 60 %> hrs <%= @movie["runtime"] % 60 %> mins
 					<% end %>
 				</div>
 				<div id="fact-genre" class="fact-item">Genres</div>
 				<div id="fact-date" class="fact-item">
 					<% if @movie["date"] %>
-					<%= @movie["date"] %>
+						<%= @movie["date"] %>
 					<% end %>
 				</div>
 				<% if @movie["homepage"] %>
-				<div id="movie-site"><a href="<%= @movie["homepage"] %>">Official Site</a></div>
+					<div id="movie-site"><a href="<%= @movie["homepage"] %>">Official Site</a></div>
 				<% end %>
 			</div>
 			<hr>
@@ -37,16 +43,17 @@
 			<h3>Reviews</h3>
 		</div>
 		<% @movie["reviews"].each do |review|%>
-			<div class="review-blurb">
+			<div class="review-comment-box clearfix">
 				<div class="review-line-rating">
 					<%= raw gen_stars(review.rating) %>
 				</div>
-				<div >
-					<% if review.comment %>
+				<div class="review-comment">
+					<% if review.comment && !review.comment.eql?("") %>
 						<%= review.comment %>
-					<% else %>
-						- annonymous
 					<% end %>
+					<div class="review-perma">
+						<%= link_to 'Permalink', review_path(review), :class => "action-link general-link"%>
+					</div>
 				</div>
 			</div>
 		<% end %>

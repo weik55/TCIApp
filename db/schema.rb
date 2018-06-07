@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_05_230836) do
+ActiveRecord::Schema.define(version: 2018_06_06_223201) do
+
+  create_table "ratings", force: :cascade do |t|
+    t.integer "movie_id"
+    t.integer "one_star"
+    t.integer "two_star"
+    t.integer "three_star"
+    t.integer "four_star"
+    t.integer "five_star"
+    t.float "avg"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "reviews", force: :cascade do |t|
     t.integer "movie_id"

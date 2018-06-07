@@ -36,10 +36,7 @@ class MovieRetriever
 		action = "movie/now_playing"
 		argument = "&language=en-US&page=1"
 		response = call_api(action, argument)
-		movies = response["results"]
-		movies.each do |movie|
-			movie["date"] = format_date(movie["release_date"])
-		end
+		movies = process_results(response["results"])
 		return movies
 	end
 
@@ -48,25 +45,36 @@ class MovieRetriever
 		action = "discover/movie"
 		today = Date.today.to_s
 		next_month = Date.today.advance(:months => 1).to_s
-		argument = "&primary_release_date.gte=" + today + "&primary_release_date.lte=" + next_month
+		argument = "&include_adult=false&primary_release_date.gte=" + today + "&primary_release_date.lte=" + next_month
 		response = call_api(action, argument)
-		movies = response["results"]
-		movies.each do |movie|
-			movie["date"] = format_date(movie["release_date"])
-		end
+		movies = process_results(response["results"])
 		return movies
 	end
 
+	# Retrieves the a list of movies sorted by title alphabetically
+	def get_by_title (page = 1)
+		action = "discover/movie"
+		argument = "&sort_by=original_title.asc" + "&page=" + page.to_s
+		response = call_api(action, argument)
+		movies = process_results(response["results"])
+		return movies
+	end
+
+	# Retrieves the a list of movies sorted by year and then most recent
+	def get_by_year (year, page = 1)
+		action = "discover/movie"
+		argument = "&sort_by=release_date.desc" + "&year=" + year + "&page=" + page.to_s
+		response = call_api(action, argument)
+		movies = process_results(response["results"])
+		return movies
+	end
 
 	# Retrieves the information of one movie
-	# 
 	def get_movie (id)
 		action = "movie/" + id
 		argument = "&language=en-US"
 		response = call_api(action, argument)
-		if response["release_date"]
-			response["date"] = format_date(response["release_date"])
-		end
+		movie = process_result(response)
 		return response
 	end
 
@@ -80,11 +88,37 @@ class MovieRetriever
 		return response_body
 	end
 
+	# Loads the movie ratings and reviews from our database
+	def MovieRetriever.load_movie_details (movies)
+		movies.each do |movie|
+			movie["ratings"] = Rating.by_movie(movie["id"])
+			if Review.by_movie(movie["id"]).size <= 7
+				movie["reviews"] = Review.by_movie(movie["id"])
+				movie["more_reviews"] = false
+			else 
+				movie["reviews"] = Review.by_movie(movie["id"]).first(7)
+				movie["more_reviews"] = true
+			end
+		end
+		return movies
+	end
+	
 	private 
-		# Helper method to return dates in normal written format
-		def format_date(date)
-			date_obj = Date.parse(date)
-			formatted = date_obj.to_formatted_s(:long)
-			return formatted
+
+		def process_results (results)
+			results.each do |result|
+				result = process_result(result)
+			end
+			return results
+		end
+
+		def process_result (result)
+			if result["release_date"] && !result["release_date"].eql?("")
+				date_obj = Date.parse(result["release_date"])
+				result["date"] = date_obj.to_formatted_s(:long)
+			else 
+				result["date"] = "None"
+			end
+			return result
 		end
 end 
