@@ -1,4 +1,12 @@
 <div id="reviews-main">
+	<div>
+		<% if @has_prev %>
+			<%= link_to 'Previous Reviews',  reviews_path(:page => params["page"].to_i - 1), :class => "action-link general-link"%>
+		<% end %>
+		<% if @has_more %>
+			<%= link_to 'Next Reviews', reviews_path(:page => @next_page), :class => "right action-link general-link"%>
+		<% end %>
+	</div>
 	<div id="reviews-table" class="table">
 		<div id="reviews-heading" class="row">
 			<div>ID</div>
@@ -8,15 +16,14 @@
 			<div>Comment</div>
 			<div>Actions</div>
 		</div>
-
 			<% @reviews.each do |review| %>
 				<div class="row">
 					<div>
-						<%= link_to review.id, review_path(review.id), :class => "title-link"%>	
+						<%= link_to review.id, review_path(review.id), :class => "general-link"%>	
 					</div>
 					<div class="movie-column">
 						<% if review.movie_title %>
-							<%= link_to review.movie_title, movie_path(review.movie_id), :class => "title-link" %>	
+							<%= link_to review.movie_title, movie_path(review.movie_id), :class => "general-link" %>	
 						<% end %>
 					</div>
 					<div class="centered-column">
@@ -35,8 +42,8 @@
 						<% end %>
 					</div>
 					<div class="centered-column">
-						<%= link_to 'Show', review_path(review), :class => "action-link title-link"%>
-						<%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: 'Are you sure? You cannot undo this action.' }, :class => "action-link title-link" %>
+						<%= link_to 'Permalink', review_path(review), :class => "action-link general-link"%>
+						<%= link_to 'Delete', review_path(review), method: :delete, data: { confirm: 'Are you sure? You cannot undo this action.' }, :class => "action-link general-link" %>
 					</div>
 				</div>
 			<% end %>

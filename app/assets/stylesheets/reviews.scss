@@ -2,11 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/* General Reviews Styles */
 
 #reviews-main,
-#review-view {
+#review-view,
+#review-new-view {
 	padding: 20px;
 }
+
+/* Reviews Index View */
 
 #reviews-heading {
 	font-weight: bold;
@@ -43,15 +47,15 @@
 	margin-right: 10px;
 }
 
-#review-new-view {
-	padding: 20px;
-}
+/* Reviews New View */
 
 #review-new-view h2 {
 	font-size: 2em;
 	margin-top: 0;
 	margin-bottom: 20px;
 }
+
+/* Form Styles */
 
 #review-form {
 	background: #fff;

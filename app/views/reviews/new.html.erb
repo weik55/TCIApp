@@ -1,4 +1,17 @@
 <div id="review-new-view">
+	<% if @review.errors.any? %>
+	    <div id="error_explanation">
+	      <h2>
+	        <%= pluralize(@review.errors.count, "error") %> prohibited
+	        this article from being saved:
+	      </h2>
+	      <ul>
+	        <% @review.errors.full_messages.each do |msg| %>
+	          <li><%= msg %></li>
+	        <% end %>
+	      </ul>
+	    </div>
+  	<% end %>
 	<h2>
 		<% if params[:movie_title] && !params[:movie_title].empty? && params[:movie_id] && !params[:movie_id].empty? %>
 			<%= link_to params[:movie_title], movie_path(params[:movie_id]), :class => "title-link" %>	

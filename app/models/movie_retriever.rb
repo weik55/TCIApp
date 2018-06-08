@@ -2,10 +2,6 @@
 class MovieRetriever
 	require "net/http"
 	BASE_URL = "https://api.themoviedb.org/3/"
-	IMG_URL = "http://image.tmdb.org/t/p/"
-
-	@@poster_sizes = ["w92", "w154", "w185","w342","w500","w780","original"] 	#Hard code in the sizes for now, turn this into auto population later
-	@@backdrop_sizes = ["w300", "w780", "w1280", "original"]
 
 	# Initializes the class with default variables
 	def initialize
@@ -15,20 +11,45 @@ class MovieRetriever
 
 	# Returns the server poster configuration for a chosen size (int)
 	def poster_config (size)
-		config = IMG_URL + @@poster_sizes[size] + "/"
-		return config
+		config = get_config_for("base_url") + get_config_for("poster_sizes")[size] + "/"
 	end
 
 	# Returns the server backdrop configuration for a chosen size (int)
 	def backdrop_config (size)
-		config = IMG_URL + @@backdrop_sizes[size] + "/"
-		return config
+		config = get_config_for("base_url") +  get_config_for("backdrop_sizes")[size] + "/"
 	end
 
-	# Retrieves the current configuration of the database server
+	# Returns the config for a specified key
+	def get_config_for (type)
+		current_config = server_config
+		config = server_config["images"][type]
+	end
+
+	# Retrieves the current configuration of the database server from the server
 	def get_serv_config
 		action = "configuration"
 		response = call_api(action)
+	end
+
+	# Returns the current cached configuration, else retrieve it from the server
+	def server_config
+    	Rails.cache.fetch("tmdb/server_config", expires_in: 24.hours) do
+    		get_serv_config
+		end
+	end
+
+	# Returns the current cached genre map, else retrieve it from the server
+	def get_genres
+    	Rails.cache.fetch("tmdb/genres_list", expires_in: 24.hours) do
+    		action = "genre/movie/list"
+    		argument = "&language=en-US"
+			response = call_api(action, argument)
+			@result = Hash.new
+			response["genres"].each do |genre|
+				@result[genre["id"]] = genre["name"]
+			end
+			@result
+		end
 	end
 
 	# Retrieves the first page of a list of movies currently in theaters
@@ -37,7 +58,6 @@ class MovieRetriever
 		argument = "&language=en-US&page=1"
 		response = call_api(action, argument)
 		movies = process_results(response["results"])
-		return movies
 	end
 
 	# Retrieves the first page of a list of movies that are upcoming
@@ -48,7 +68,6 @@ class MovieRetriever
 		argument = "&include_adult=false&primary_release_date.gte=" + today + "&primary_release_date.lte=" + next_month
 		response = call_api(action, argument)
 		movies = process_results(response["results"])
-		return movies
 	end
 
 	# Retrieves the a list of movies sorted by title alphabetically
@@ -57,7 +76,6 @@ class MovieRetriever
 		argument = "&sort_by=original_title.asc" + "&page=" + page.to_s
 		response = call_api(action, argument)
 		movies = process_results(response["results"])
-		return movies
 	end
 
 	# Retrieves the a list of movies sorted by year and then most recent
@@ -66,7 +84,14 @@ class MovieRetriever
 		argument = "&sort_by=release_date.desc" + "&year=" + year + "&page=" + page.to_s
 		response = call_api(action, argument)
 		movies = process_results(response["results"])
-		return movies
+	end
+
+	# Retrieves the a list of movies sorted by genre
+	def get_by_genre (genre, page = 1)
+		action = "discover/movie"
+		argument = "&with_genres=" + genre + "&page=" + page.to_s
+		response = call_api(action, argument)
+		movies = process_results(response["results"])
 	end
 
 	# Retrieves the information of one movie
@@ -75,7 +100,6 @@ class MovieRetriever
 		argument = "&language=en-US"
 		response = call_api(action, argument)
 		movie = process_result(response)
-		return response
 	end
 
 	# General method to call the api of the movie database
@@ -85,26 +109,44 @@ class MovieRetriever
 		response = Net::HTTP.get_response(uri)
 		#check response
 		response_body = JSON.parse(response.body)
-		return response_body
 	end
 
 	# Loads the movie ratings and reviews from our database
-	def MovieRetriever.load_movie_details (movies)
+	def load_movie_details (movies)
 		movies.each do |movie|
-			movie["ratings"] = Rating.by_movie(movie["id"])
-			if Review.by_movie(movie["id"]).size <= 7
-				movie["reviews"] = Review.by_movie(movie["id"])
-				movie["more_reviews"] = false
-			else 
-				movie["reviews"] = Review.by_movie(movie["id"]).first(7)
-				movie["more_reviews"] = true
-			end
+			load_ratings(movie)
+			load_reviews(movie)
+			load_genres(movie)
 		end
 		return movies
+	end
+
+	# Loads the ratings of a specified movie
+	def load_ratings (movie)
+		movie["ratings"] = Rating.by_movie(movie["id"])
+	end
+
+	# Loads the reviews of a specified movie
+	def load_reviews (movie)
+		movie["reviews"] = Review.by_movie_quick(movie["id"])
+		if Review.by_movie(movie["id"]).size <= 7
+			movie["more_reviews"] = false
+		else 
+			movie["more_reviews"] = true
+		end
+	end
+
+	# Loads the genres of the specified movie
+	def load_genres (movie) 
+		movie["genres"] = Hash.new
+		movie["genre_ids"].each do |id|
+			movie["genres"][id] = get_genres[id]
+		end
 	end
 	
 	private 
 
+		# Processes the a list of results of a movie
 		def process_results (results)
 			results.each do |result|
 				result = process_result(result)
@@ -112,6 +154,7 @@ class MovieRetriever
 			return results
 		end
 
+		# Processes the result of a movie to change the dates to be more legible, could be extended for other processing
 		def process_result (result)
 			if result["release_date"] && !result["release_date"].eql?("")
 				date_obj = Date.parse(result["release_date"])

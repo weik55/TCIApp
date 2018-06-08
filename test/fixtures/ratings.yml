@@ -1,6 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  movie_id: 1
   one_star: 1
   two_star: 1
   three_star: 1
@@ -9,9 +10,19 @@ one:
   avg: 1.5
 
 two:
+  movie_id: 323
   one_star: 1
-  two_star: 1
+  two_star: 
   three_star: 1
-  four_star: 1
+  four_star: 
   five_star: 1
-  avg: 1.5
+  avg: 
+
+two:
+  movie_id: 66864
+  one_star: 
+  two_star: 
+  three_star: 
+  four_star: 
+  five_star: 1
+  avg: 5

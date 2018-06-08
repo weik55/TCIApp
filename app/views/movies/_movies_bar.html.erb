@@ -4,14 +4,14 @@
 		<%= link_to "In Theaters", movies_path, :class => (params[:sort_by] ? "" : "selected")  %>
 		<%= link_to "Title", movies_path(:sort_by => "title"), :class => (params[:sort_by] == "title" ? "selected" : "")  %>
 		<%= link_to "Release Date", movies_path(:sort_by => "date", :year => 2018), :class => (params[:sort_by] == "date" ? "selected" : "") %>
-		<%= link_to "Genre", movies_path(:sort_by => "genre"), :class => (params[:sort_by] == "genre" ? "selected" : "") %>
+		<%= link_to "Genre", movies_path(:sort_by => "genre", :genre => 28), :class => (params[:sort_by] == "genre" ? "selected" : "") %>
 	</div>
 	<% if params[:sort_by] == "date" || params[:sort_by] == "genre" %>
 		<div id="additional-sort">
 			<% if params[:sort_by] == "date" %>
-				Year:  <%= select_tag 'team_id', options_for_select( (1980..2018).reverse_each{|year| [year] }, 2018 ) %>
+				Year:  <%= select_tag 'year', options_for_select( (1970..2018).reverse_each{|year| [year] }, params["year"] ),  :onchange => "window.location.replace('movies?sort_by=date&year='+this.value);" %>
 			<% elsif params[:sort_by] == "genre" %>
-				Genre:
+				Genre: <%= select_tag 'genre', options_for_select( @genres.each{|genre| genre },  params["genre"] ), :onchange => "window.location.replace('movies?sort_by=genre&genre='+this.value);" %>
 			<% end %>
 		</div>
 	<% end %>

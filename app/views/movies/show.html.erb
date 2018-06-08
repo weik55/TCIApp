@@ -1,5 +1,6 @@
 <div id="content">
 	<div id="article" class="clearfix">
+		<!-- Movie Content -->
 		<div id="article-img">
 			<% if @movie["poster_path"] %>
 			<img src="<%= @poster + @movie["poster_path"] %>" alt="<%= @movie["title"] + " Poster Image" %>"/>
@@ -36,8 +37,12 @@
 			<div id="overview">
 				<%= @movie["overview"] %>
 			</div>
+			<div id="review-link">
+				<%= link_to 'Leave a Review', new_review_path(:movie_title => @movie["title"], :movie_id => @movie["id"]), :class => "general-link" %>
+			</div>
 		</div>
 	</div>
+	<!-- Reviews Content -->
 	<div id="reviews">
 		<div id="reviews-box-title">
 			<h3>Reviews</h3>
@@ -57,5 +62,10 @@
 				</div>
 			</div>
 		<% end %>
+		<div id="more-reviews">
+			<% if @movie["more_reviews"] %>
+				<%= link_to 'More Reviews', movie_path(@movie["id"], :page => params["page"].to_i + 1), :class => "action-link general-link"%>
+			<% end %>
+		</div>
 	</div>
 </div>

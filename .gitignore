@@ -28,4 +28,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
-/app/controllers/keys.rb
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+

@@ -36,6 +36,13 @@
 	vertical-align: middle;
 }
 
+#additional-sort select{
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
 #movies-view-content {
     width: 100%;
 }
@@ -91,6 +98,10 @@
 	padding-bottom: 20px;
 }
 
+#review-link {
+	margin-top: 20px;
+}
+
 .review-comment-box {
 	margin-top: 10px;
 }
@@ -105,3 +116,6 @@
 	font-size: 0.75em;
 }
 
+#more-reviews {
+	margin-top: 20px;
+}

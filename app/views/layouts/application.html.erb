@@ -20,6 +20,7 @@
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <div id="body-content">
+      <!-- Header -->
       <div id="header" class="clearfix">
         <div id="all-title">
           <%= link_to image_tag("tci-logo.svg"), root_path, :id => "tci-logo", :alt => "tci-logo"%> 
@@ -32,8 +33,10 @@
           <%= link_to "About", about_path, :class => "title-link" %>
         </div>
       </div>
+      <!-- Main Body Content -->
       <%= yield %>
     </div>
+    <!-- Footer -->
     <div id="footer">
       Site made by <a href="http://www.weikongweb.com">Wei Kong</a>. All content and images are copyright their respective owners. Powered By: <a href="https://www.themoviedb.org">The Movie DB</a>
     </div>

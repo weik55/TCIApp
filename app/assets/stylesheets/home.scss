@@ -119,6 +119,10 @@ h1 {
 	float:left;
 }
 
+.right {
+    float: right;
+}
+
 .stars-gold {
     color: #ff9800;
 }
@@ -250,36 +254,59 @@ h1 {
     color: #000;
 }
 
-/* Home View Main Content */
+/* Home View Main Content Scaling*/
 
 #home-view-content {
     width: 70%;
 }
 
 #content-article {
-	float: left;
-	margin-right: 1%;
-	width: 100%;
+    float: left;
+    margin-right: 1%;
+    width: 100%;
 
 }
 
 #content-aside {
-    background: #fff;
-	border-right: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-	float: right;
-	margin-top: 20px;
-	margin-left: 20px;
-	min-width: 300px;
-	padding: 15px;
-	width: 25%;
+    float: right;
+    margin-top: 20px;
+    min-width: 300px;
+    padding: 15px;
+    width: 25%;
 }
 
-#content-aside h2,
-.article-box h3 {
-	font-size: 1.5em;
-	margin: 0;
-	font-weight: normal;
+@media only screen and (max-width: 1300px) {
+    /* For mobile phones: */
+    #home-view-content {
+        width: 68%;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    /* For mobile phones: */
+    #home-view-content {
+        width: 64%;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    /* For mobile phones: */
+    #home-view-content {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    /* For mobile phones: */
+    #home-view-content {
+        width: 100%;
+    }
+
+    #content-aside {
+        float: left;
+        min-width: 300px;
+        width: 98%;
+    }
 }
 
 
@@ -329,6 +356,10 @@ h1 {
 	margin: 0;
 }
 
+.summary-line a {
+    margin-right: 5px;
+}
+
 .art-reviews {
 	height: 162px;
 	margin-top: 20px;
@@ -351,6 +382,19 @@ h1 {
 }
 
 /* Side Content Box */
+
+#content-aside {
+    background: #fff;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+#content-aside h2,
+.article-box h3 {
+    font-size: 1.5em;
+    margin: 0;
+    font-weight: normal;
+}
 
 .aside-blurbs-box{
 	margin-top: 20px;

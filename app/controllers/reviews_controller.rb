@@ -8,7 +8,7 @@
 	# -Do not check for session id's to prevent 3rd party interceptions
 	# -Do not store e-mails as an encrypted hash
 # For now, we make the following assumumptions
-	# - The user is trustworthy
+	# - The user is trustworthy, and won't tamper with random fields
 	# - 3rd parties are not malicious.
 	# - Basic user privacy is fine because we do not validate e-mails anyway
 # A stronger security is a task that I have decided to not include in the scope of this project
@@ -17,7 +17,26 @@ class ReviewsController < ApplicationController
 
 	# Presents a site that shows all the reivews in once place
 	def index
-		@reviews = Review.all
+		@has_more = false
+		@has_prev = false
+
+		if params["page"] && params["page"].to_i >= 2
+			@reviews = Review.page(params["page"].to_i)
+		else
+			@reviews = Review.page
+		end
+
+		if params["page"] && Review.page(params["page"].to_i + 1).size >= 1
+			@next_page = params["page"].to_i + 1
+			@has_more = true
+		elsif !params["page"] && Review.page(2).size >= 1
+			@next_page = 2
+			@has_more = true
+		end
+
+		if params["page"] && params["page"].to_i >= 1
+			@has_prev = true
+		end
 	end
 
 	# Shows one particular review
@@ -35,17 +54,7 @@ class ReviewsController < ApplicationController
 		@review = Review.new(review_params)
 		@review.date = Date.today
 
-		@rating = Rating.by_movie(params[:review][:movie_id]);
-		star_rating = params[:review][:rating]
-		if @rating
-			@rating.update(star_rating => (@rating.get_star_count(star_rating) + 1))
-			@rating.update(avg: @rating.average_of_all)
-		else
-			@rating = Rating.new(params.require(:review).permit(:movie_id).merge(star_rating => 1, avg: star_rating))
-			@rating.save
-		end
-
-		if @review.save
+		if @review.save && RatingsController.save_rating(params)
 			redirect_to @review
 		else
 			render 'new'
