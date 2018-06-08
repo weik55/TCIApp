@@ -5,7 +5,7 @@ class MovieRetriever
 
 	# Initializes the class with default variables
 	def initialize
-		@api_key = "?api_key=" + Keys.mdb_api
+		@api_key = "?api_key=" + ENV['MDB_API']
 		@def_config = "http://image.tmdb.org/t/p/w154/"
 	end
 
