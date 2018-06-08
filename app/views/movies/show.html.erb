@@ -64,7 +64,7 @@
 		<% end %>
 		<div id="more-reviews">
 			<% if @movie["more_reviews"] %>
-				<%= link_to 'More Reviews', movie_path(@movie["id"], :page => params["page"].to_i + 1), :class => "action-link general-link"%>
+				<%= link_to 'More Reviews', movie_path(@movie["id"], :page => @next_page), :class => "action-link general-link"%>
 			<% end %>
 		</div>
 	</div>

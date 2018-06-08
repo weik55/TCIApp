@@ -36,19 +36,22 @@ class MoviesController < ApplicationController
 		mr = MovieRetriever.new
 		@movie = mr.get_movie(params[:id])
 		@movie["ratings"] = Rating.by_movie(params[:id])
+		@movie["reviews"] = Review.by_movie(params[:id])
+
+		if params["page"].to_i >= 2
+			@movie["reviews"] = Review.by_movie(params[:id], params["page"].to_i)
+		end
 
 		if params["page"]
-			if params["page"].to_i >= 2
-				@movie["reviews"] = Review.by_movie(params[:id], params["page"].to_i)
-			else
-				@movie["reviews"] = Review.by_movie(params[:id])
-			end
+			@next_page = params["page"].to_i + 1
+		else
+			@next_page = 2
+		end
 
-			if  Review.by_movie(@movie["id"], params["page"].to_i + 1).size >= 1
-				@movie["more_reviews"] = true
-			else 
-				@movie["more_reviews"] = false
-			end
+		if  Review.by_movie(@movie["id"], @next_page).size >= 1
+			@movie["more_reviews"] = true
+		else 
+			@movie["more_reviews"] = false
 		end
 
 		@poster = mr.poster_config(3)

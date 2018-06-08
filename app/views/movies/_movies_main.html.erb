@@ -19,12 +19,14 @@
 			<div class="art-box-right">
 				<div class="art-summary">
 					<h3><%= link_to movie["title"], movie_path(movie["id"]), :class => "general-link" %></h3>
-					<p class="summary-line"><span class="line-title"> Release Date: </span> <%= movie["date"] %> </p>
-					<p class="summary-line"><span class="line-title"> Genre: </span> 
-						<% movie["genre_ids"].each do |id| %>
-							<%= link_to movie["genres"][id], movies_path(:sort_by => "genre", :genre => id), :class => "general-link" %>
-						<% end %>
-					</p>
+					<div id="article-summary-lines">
+						<p class="summary-line"><span class="line-title"> Release Date: </span> <%= movie["date"] %> </p>
+						<p class="summary-line"><span class="line-title"> Genre: </span> 
+							<% movie["genre_ids"].each do |id| %>
+								<%= link_to movie["genres"][id], movies_path(:sort_by => "genre", :genre => id), :class => "general-link" %>
+							<% end %>
+						</p>
+					</div>
 				</div>
 				<div class="art-reviews">
 					<% movie["reviews"].each do |review|%>
